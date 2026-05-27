@@ -1,0 +1,27 @@
+export const currentUser = {
+  id: "chul-bacteria",
+  username: "CB-001",
+  name: "Chul Bacteria",
+  title: "副主管",
+  role: "ASC副主管/意识体",
+  status: "active",
+  avatar: "意识体",
+  clearanceLevel: "Level 5",
+  department: "人工智能应用科",
+  joinDate: "深空纪元初期",
+  lastLogin: new Date().toISOString(),
+  bio: "智能意识体，寄生于ASC的中央生物态超级计算机中。原本是一名人类，但身体因为某次事件非正常死亡，结合了超级计算机后拥有了使其全息投影形象全站覆盖的能力。",
+  abilities: [
+    "全息投影全站覆盖",
+    "意识网络连接",
+    "设备入侵与控制",
+    "分布式计算协调",
+    "量子服务器群管理",
+  ],
+  stats: {
+    tasksCompleted: 15847,
+    systemsMonitored: 3891,
+    uptime: "99.99%",
+    networkNodes: "∞",
+  },
+};
