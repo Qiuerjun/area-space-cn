@@ -237,27 +237,27 @@ export default function AISystemPage() {
   };
 
   return (
-    <div className="min-h-screen p-8 flex flex-col">
+    <div className="min-h-screen p-4 md:p-8 flex flex-col">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-4 md:mb-6"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <Bot className="w-8 h-8 text-cyan-400" />
-              <h1 className="text-3xl font-mono text-cyan-400">
+              <Bot className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
+              <h1 className="text-2xl md:text-3xl font-mono text-cyan-400">
                 {aiSystemInfo.name}
               </h1>
             </div>
-            <p className="text-gray-500 font-mono text-sm">
+            <p className="text-gray-500 font-mono text-xs md:text-sm">
               {aiSystemInfo.fullName} - {aiSystemInfo.version}
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-mono flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 md:gap-3">
+            <span className="px-2 md:px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-mono flex items-center gap-2">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               系统在线
             </span>
@@ -273,17 +273,17 @@ export default function AISystemPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="mb-6 bg-[#0d0d15] border border-cyan-500/20 p-4"
+        className="mb-4 md:mb-6 bg-[#0d0d15] border border-cyan-500/20 p-3 md:p-4"
       >
         <div className="flex items-center gap-2 mb-3">
-          <Cpu className="w-4 h-4 text-cyan-400" />
-          <span className="text-cyan-400 font-mono text-sm">系统能力</span>
+          <Cpu className="w-3 h-3 md:w-4 md:h-4 text-cyan-400" />
+          <span className="text-cyan-400 font-mono text-xs md:text-sm">系统能力</span>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1 md:gap-2">
           {aiSystemInfo.capabilities.map((cap, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs"
+              className="px-2 md:px-3 py-0.5 md:py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs"
             >
               {cap}
             </span>
@@ -296,19 +296,19 @@ export default function AISystemPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="mb-6"
+        className="mb-4 md:mb-6"
       >
         <div className="flex items-center gap-2 mb-3">
-          <Zap className="w-4 h-4 text-yellow-400" />
-          <span className="text-gray-400 font-mono text-sm">快速操作</span>
+          <Zap className="w-3 h-3 md:w-4 md:h-4 text-yellow-400" />
+          <span className="text-gray-400 font-mono text-xs md:text-sm">快速操作</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
           {presetQuestions.map((q) => (
             <button
               key={q.id}
               onClick={() => handlePresetQuestion(q)}
               disabled={isTyping || thinking.isThinking}
-              className={`p-3 border font-mono text-sm text-left transition-all disabled:opacity-50 ${getCategoryColor(
+              className={`p-2 md:p-3 border font-mono text-xs md:text-sm text-left transition-all disabled:opacity-50 min-h-[44px] ${getCategoryColor(
                 q.category
               )}`}
             >
@@ -336,10 +336,10 @@ export default function AISystemPage() {
         className="flex-1 bg-[#0d0d15] border border-cyan-500/20 flex flex-col"
       >
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 max-h-[400px]">
+        <div className="flex-1 overflow-y-auto p-3 md:p-6 space-y-3 md:space-y-4 max-h-[350px] md:max-h-[400px]">
           {messages.length === 0 && (
-            <div className="text-center text-gray-600 font-mono text-sm py-12">
-              <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <div className="text-center text-gray-600 font-mono text-xs md:text-sm py-8 md:py-12">
+              <Bot className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 opacity-50" />
               <p>ASC-CB idex-2077 已就绪</p>
               <p className="text-xs mt-2">请选择预设问题或输入自定义查询</p>
             </div>
@@ -353,7 +353,7 @@ export default function AISystemPage() {
               }`}
             >
               <div
-                className={`max-w-[80%] p-4 font-mono text-sm ${
+                className={`max-w-[85%] md:max-w-[80%] p-3 md:p-4 font-mono text-xs md:text-sm ${
                   msg.type === "user"
                     ? "bg-cyan-500/20 border border-cyan-500/30 text-cyan-300"
                     : "bg-[#0a0a0f] border border-cyan-500/10 text-gray-300"
@@ -363,7 +363,7 @@ export default function AISystemPage() {
                   {msg.content}
                 </pre>
                 <div
-                  className={`text-xs mt-2 ${
+                  className={`text-[10px] md:text-xs mt-2 ${
                     msg.type === "user" ? "text-cyan-500" : "text-gray-600"
                   }`}
                 >
@@ -376,35 +376,35 @@ export default function AISystemPage() {
           {/* Thinking State */}
           {thinking.isThinking && (
             <div className="flex justify-start">
-              <div className="max-w-[80%] w-full p-4 bg-[#0a0a0f] border border-yellow-500/20 text-gray-300 font-mono text-sm">
-                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-yellow-500/10">
-                  <BrainCircuit className="w-4 h-4 text-yellow-400 animate-pulse" />
+              <div className="max-w-[85%] md:max-w-[80%] w-full p-3 md:p-4 bg-[#0a0a0f] border border-yellow-500/20 text-gray-300 font-mono text-xs md:text-sm">
+                <div className="flex items-center gap-2 mb-2 md:mb-3 pb-1 md:pb-2 border-b border-yellow-500/10">
+                  <BrainCircuit className="w-3 h-3 md:w-4 md:h-4 text-yellow-400 animate-pulse" />
                   <span className="text-yellow-400 font-mono text-xs">
                     思考中...
                   </span>
-                  <Loader2 className="w-3 h-3 text-yellow-400 animate-spin" />
+                  <Loader2 className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-400 animate-spin" />
                 </div>
 
                 {thinking.isPreset && (
                   <>
-                    <pre className="whitespace-pre-wrap break-words text-gray-400 text-xs mb-3">
+                    <pre className="whitespace-pre-wrap break-words text-gray-400 text-[11px] md:text-xs mb-2 md:mb-3">
                       {thinking.visibleThinkingText}
                       <span className="animate-pulse">▊</span>
                     </pre>
 
                     <div className="space-y-1">
-                      <p className="text-gray-500 text-xs mb-2">调用工具：</p>
+                      <p className="text-gray-500 text-[11px] md:text-xs mb-1 md:mb-2">调用工具：</p>
                       {thinking.tools.map((tool, index) => (
                         <div
                           key={index}
-                          className={`flex items-center gap-2 text-xs transition-all ${
+                          className={`flex items-center gap-2 text-[11px] md:text-xs transition-all ${
                             index <= thinking.currentToolIndex
                               ? "text-cyan-400"
                               : "text-gray-600"
                           }`}
                         >
                           <Wrench
-                            className={`w-3 h-3 ${
+                            className={`w-2.5 h-2.5 md:w-3 md:h-3 ${
                               index <= thinking.currentToolIndex
                                 ? "text-cyan-400"
                                 : "text-gray-600"
@@ -421,8 +421,8 @@ export default function AISystemPage() {
                 )}
 
                 {!thinking.isPreset && (
-                  <div className="flex items-center gap-2 text-gray-500 text-xs">
-                    <Loader2 className="w-3 h-3 animate-spin" />
+                  <div className="flex items-center gap-2 text-gray-500 text-[11px] md:text-xs">
+                    <Loader2 className="w-2.5 h-2.5 md:w-3 md:h-3 animate-spin" />
                     <span>正在处理请求...</span>
                   </div>
                 )}
@@ -433,7 +433,7 @@ export default function AISystemPage() {
           {/* Streaming Output */}
           {isTyping && (
             <div className="flex justify-start">
-              <div className="max-w-[80%] p-4 bg-[#0a0a0f] border border-cyan-500/10 text-gray-300 font-mono text-sm">
+              <div className="max-w-[85%] md:max-w-[80%] p-3 md:p-4 bg-[#0a0a0f] border border-cyan-500/10 text-gray-300 font-mono text-xs md:text-sm">
                 <pre className="whitespace-pre-wrap break-words">
                   {streamingText}
                   <span className="animate-pulse">▊</span>
@@ -444,7 +444,7 @@ export default function AISystemPage() {
 
           {isStopped && (
             <div className="flex justify-start">
-              <div className="max-w-[80%] p-3 bg-red-500/10 border border-red-500/20 text-red-400 font-mono text-xs">
+              <div className="max-w-[85%] md:max-w-[80%] p-2 md:p-3 bg-red-500/10 border border-red-500/20 text-red-400 font-mono text-[11px] md:text-xs">
                 ⚠ 输出已被用户终止
               </div>
             </div>
@@ -454,8 +454,8 @@ export default function AISystemPage() {
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-cyan-500/20">
-          <div className="flex gap-3">
+        <div className="p-3 md:p-4 border-t border-cyan-500/20">
+          <div className="flex gap-2 md:gap-3">
             <input
               type="text"
               value={inputValue}
@@ -463,22 +463,22 @@ export default function AISystemPage() {
               onKeyPress={(e) => e.key === "Enter" && handleSend()}
               placeholder="输入查询或指令..."
               disabled={isTyping || thinking.isThinking}
-              className="flex-1 bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-4 py-3 focus:outline-none focus:border-cyan-400 disabled:opacity-50 placeholder:text-gray-600"
+              className="flex-1 bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-3 md:px-4 py-2.5 md:py-3 focus:outline-none focus:border-cyan-400 disabled:opacity-50 placeholder:text-gray-600 text-sm"
             />
             {(isTyping || thinking.isThinking) ? (
               <button
                 onClick={handleStop}
-                className="px-6 bg-red-500/20 border border-red-500 text-red-400 font-mono hover:bg-red-500/30 transition-all"
+                className="px-4 md:px-6 bg-red-500/20 border border-red-500 text-red-400 font-mono hover:bg-red-500/30 transition-all min-h-[44px]"
               >
-                <Square className="w-5 h-5" />
+                <Square className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             ) : (
               <button
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
-                className="px-6 bg-cyan-500/20 border border-cyan-500 text-cyan-400 font-mono hover:bg-cyan-500/30 transition-all disabled:opacity-50"
+                className="px-4 md:px-6 bg-cyan-500/20 border border-cyan-500 text-cyan-400 font-mono hover:bg-cyan-500/30 transition-all disabled:opacity-50 min-h-[44px]"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             )}
           </div>

@@ -142,30 +142,30 @@ export default function ControlPage() {
   };
 
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-screen p-4 md:p-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6 md:mb-8"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <Settings className="w-8 h-8 text-cyan-400" />
-              <h1 className="text-3xl font-mono text-cyan-400">站点控制</h1>
+              <Settings className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
+              <h1 className="text-2xl md:text-3xl font-mono text-cyan-400">站点控制</h1>
             </div>
-            <p className="text-gray-500 font-mono text-sm">
+            <p className="text-gray-500 font-mono text-xs md:text-sm">
               AREA-SPACE-CN 站点参数监控与控制系统
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-500 font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2 md:gap-4">
+            <span className="text-gray-500 font-mono text-[10px] md:text-xs">
               最后更新: {lastUpdate.toLocaleTimeString("zh-CN")}
             </span>
             <button
               onClick={() => setIsAutoMode(!isAutoMode)}
-              className={`px-4 py-2 font-mono text-sm border transition-all ${
+              className={`px-3 md:px-4 py-1.5 md:py-2 font-mono text-xs md:text-sm border transition-all min-h-[44px] ${
                 isAutoMode
                   ? "bg-cyan-500/20 border-cyan-500 text-cyan-400"
                   : "bg-gray-500/20 border-gray-500 text-gray-400"
@@ -182,26 +182,26 @@ export default function ControlPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="mb-8 bg-[#0d0d15] border border-cyan-500/20 p-4 flex items-center justify-between"
+        className="mb-6 md:mb-8 bg-[#0d0d15] border border-cyan-500/20 p-3 md:p-4 flex flex-wrap items-center justify-between gap-3"
       >
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-3 md:gap-6">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-gray-400 font-mono text-sm">系统在线</span>
+            <span className="text-gray-400 font-mono text-xs md:text-sm">系统在线</span>
           </div>
-          <span className="text-gray-500 font-mono text-xs">
+          <span className="text-gray-500 font-mono text-[10px] md:text-xs">
             CB意识体状态：活跃
           </span>
-          <span className="text-gray-500 font-mono text-xs">
+          <span className="text-gray-500 font-mono text-[10px] md:text-xs">
             防火墙：正常
           </span>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="px-3 py-1 bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 font-mono text-xs hover:bg-yellow-500/30 transition-all">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3">
+          <button className="px-2 md:px-3 py-1 bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 font-mono text-[10px] md:text-xs hover:bg-yellow-500/30 transition-all min-h-[44px]">
             <RefreshCw className="w-3 h-3 inline mr-1" />
             刷新数据
           </button>
-          <button className="px-3 py-1 bg-red-500/20 border border-red-500/30 text-red-400 font-mono text-xs hover:bg-red-500/30 transition-all">
+          <button className="px-2 md:px-3 py-1 bg-red-500/20 border border-red-500/30 text-red-400 font-mono text-[10px] md:text-xs hover:bg-red-500/30 transition-all min-h-[44px]">
             <Power className="w-3 h-3 inline mr-1" />
             紧急停机
           </button>
@@ -209,7 +209,7 @@ export default function ControlPage() {
       </motion.div>
 
       {/* Parameters Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {params.map((param, index) => (
           <motion.div
             key={param.id}
@@ -222,21 +222,21 @@ export default function ControlPage() {
                 : param.status === "warning"
                 ? "border-yellow-500/40"
                 : "border-cyan-500/20"
-            } p-6 transition-all hover:border-cyan-500/40`}
+            } p-4 md:p-6 transition-all hover:border-cyan-500/40`}
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3 md:mb-4">
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-10 h-10 ${getStatusColor(
+                  className={`w-9 h-9 md:w-10 md:h-10 ${getStatusColor(
                     param.status
                   )} flex items-center justify-center`}
                 >
-                  <param.icon className="w-5 h-5" />
+                  <param.icon className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
-                <div>
-                  <h3 className="text-white font-mono text-sm">{param.name}</h3>
+                <div className="min-w-0">
+                  <h3 className="text-white font-mono text-xs md:text-sm break-words">{param.name}</h3>
                   <span
-                    className={`text-xs font-mono ${
+                    className={`text-[10px] md:text-xs font-mono ${
                       param.status === "critical"
                         ? "text-red-400"
                         : param.status === "warning"
@@ -252,14 +252,14 @@ export default function ControlPage() {
                   </span>
                 </div>
               </div>
-              <span className="text-2xl font-mono text-white">
+              <span className="text-xl md:text-2xl font-mono text-white flex-shrink-0 ml-2">
                 {param.value}
-                <span className="text-sm text-gray-500">{param.unit}</span>
+                <span className="text-xs md:text-sm text-gray-500">{param.unit}</span>
               </span>
             </div>
 
             {/* Slider */}
-            <div className="mt-4">
+            <div className="mt-3 md:mt-4">
               <input
                 type="range"
                 min={param.min}
@@ -270,13 +270,14 @@ export default function ControlPage() {
                 }
                 disabled={isAutoMode}
                 className="w-full h-1 bg-gray-700 rounded-none appearance-none cursor-pointer accent-cyan-500 disabled:opacity-50"
+                style={{ minHeight: '44px' }}
               />
               <div className="flex justify-between mt-1">
-                <span className="text-gray-600 font-mono text-xs">
+                <span className="text-gray-600 font-mono text-[10px] md:text-xs">
                   {param.min}
                   {param.unit}
                 </span>
-                <span className="text-gray-600 font-mono text-xs">
+                <span className="text-gray-600 font-mono text-[10px] md:text-xs">
                   {param.max}
                   {param.unit}
                 </span>
@@ -291,10 +292,10 @@ export default function ControlPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="mt-8 bg-yellow-500/10 border border-yellow-500/30 p-4 flex items-center gap-3"
+        className="mt-6 md:mt-8 bg-yellow-500/10 border border-yellow-500/30 p-3 md:p-4 flex items-start gap-2 md:gap-3"
       >
-        <AlertTriangle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-        <p className="text-yellow-400 font-mono text-sm">
+        <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+        <p className="text-yellow-400 font-mono text-xs md:text-sm">
           ⚠ 注意：手动模式下修改参数需要Level 4以上权限。自动模式由CB意识体智能调控。
         </p>
       </motion.div>
