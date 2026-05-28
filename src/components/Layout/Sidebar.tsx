@@ -13,6 +13,7 @@ import {
   Bot,
   Settings,
   Brain,
+  X,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { siteImages } from "../../config/images";
@@ -30,9 +31,18 @@ const navItems = [
 interface SidebarProps {
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
+  isMobileOpen: boolean;
+  setIsMobileOpen: (open: boolean) => void;
+  isMobile: boolean;
 }
 
-export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
+export default function Sidebar({ 
+  isCollapsed, 
+  setIsCollapsed, 
+  isMobileOpen, 
+  setIsMobileOpen, 
+  isMobile 
+}: SidebarProps) {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -41,16 +51,28 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
     navigate("/login");
   };
 
+  const handleNavClick = () => {
+    if (isMobile) {
+      setIsMobileOpen(false);
+    }
+  };
+
   return (
     <motion.aside
-      initial={{ x: -280 }}
-      animate={{ x: 0 }}
+      initial={{ x: isMobile ? -280 : -280 }}
+      animate={{ 
+        x: isMobile 
+          ? (isMobileOpen ? 0 : -280) 
+          : 0 
+      }}
       className={`fixed left-0 top-0 h-screen bg-[#0a0a0f]/95 backdrop-blur-sm border-r border-cyan-500/20 z-50 flex flex-col transition-all duration-300 ${
-        isCollapsed ? "w-16" : "w-64"
+        isMobile 
+          ? (isMobileOpen ? "w-72" : "w-0")
+          : (isCollapsed ? "w-16" : "w-64")
       }`}
     >
       {/* Header */}
-      <div className="p-4 border-b border-cyan-500/20">
+      <div className="p-4 border-b border-cyan-500/20 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center flex-shrink-0 overflow-hidden">
             {siteImages.sidebarLogo ? (
@@ -68,7 +90,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
               </span>
             )}
           </div>
-          {!isCollapsed && (
+          {(!isCollapsed || isMobile) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -83,6 +105,16 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
             </motion.div>
           )}
         </div>
+        
+        {/* 移动端关闭按钮 */}
+        {isMobile && (
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="p-2 text-gray-400 hover:text-cyan-400 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
@@ -92,8 +124,9 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
             key={item.path}
             to={item.path}
             end={item.path === "/"}
+            onClick={handleNavClick}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-3 font-mono text-sm transition-all ${
+              `flex items-center gap-3 px-3 py-4 font-mono text-sm transition-all min-h-[44px] touch-manipulation ${
                 isActive
                   ? "bg-cyan-500/20 text-cyan-400 border-l-2 border-cyan-400"
                   : "text-gray-400 hover:bg-cyan-500/10 hover:text-cyan-300 border-l-2 border-transparent"
@@ -101,7 +134,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
             }
           >
             <item.icon className="w-5 h-5 flex-shrink-0" />
-            {!isCollapsed && (
+            {(!isCollapsed || isMobile) && (
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -118,8 +151,9 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
       <div className="p-3 border-t border-cyan-500/20">
         <NavLink
           to="/profile"
+          onClick={handleNavClick}
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2 mb-2 transition-all ${
+            `flex items-center gap-3 px-3 py-3 mb-2 transition-all min-h-[44px] touch-manipulation ${
               isActive
                 ? "bg-purple-500/20 text-purple-400"
                 : "bg-[#0a0a0f] text-gray-400 hover:bg-purple-500/10 hover:text-purple-300"
@@ -127,7 +161,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
           }
         >
           <Brain className="w-5 h-5 flex-shrink-0" />
-          {!isCollapsed && (
+          {(!isCollapsed || isMobile) && (
             <div className="overflow-hidden">
               <p className="font-mono text-xs font-bold truncate">
                 Chul Bacteria
@@ -144,22 +178,24 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
       <div className="p-2 border-t border-cyan-500/20">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-3 w-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 font-mono text-sm transition-all"
+          className="flex items-center gap-3 px-3 py-4 w-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 font-mono text-sm transition-all min-h-[44px] touch-manipulation"
         >
           <LogOut className="w-5 h-5 flex-shrink-0" />
-          {!isCollapsed && <span>登出系统</span>}
+          {(!isCollapsed || isMobile) && <span>登出系统</span>}
         </button>
 
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="flex items-center justify-center w-full py-2 text-gray-500 hover:text-cyan-400 transition-colors mt-2"
-        >
-          {isCollapsed ? (
-            <ChevronRight className="w-4 h-4" />
-          ) : (
-            <ChevronLeft className="w-4 h-4" />
-          )}
-        </button>
+        {!isMobile && (
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="flex items-center justify-center w-full py-3 text-gray-500 hover:text-cyan-400 transition-colors mt-2 min-h-[44px] touch-manipulation"
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-4 h-4" />
+            ) : (
+              <ChevronLeft className="w-4 h-4" />
+            )}
+          </button>
+        )}
       </div>
     </motion.aside>
   );

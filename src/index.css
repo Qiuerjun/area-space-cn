@@ -4,7 +4,7 @@
 
 :root {
   font-family: "Courier New", "Consolas", monospace;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
   color: #c0c0c0;
   background-color: #0a0a0f;
@@ -13,8 +13,28 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* 移动端优化的滚动条 */
 * {
   scrollbar-width: thin;
   scrollbar-color: #00d4ff33 #0a0a0f;
@@ -43,6 +63,7 @@
   color: #00d4ff;
 }
 
+/* 动画 */
 @keyframes scanline {
   0% {
     transform: translateY(-100%);
@@ -97,4 +118,60 @@
 .border-glow-cyan:hover {
   border-color: rgba(0, 212, 255, 0.6);
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* 响应式字体大小 */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* 移动端优化的图片加载 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 移动端优化的按钮和可点击元素 */
+button, a, input[type="button"], input[type="submit"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* 禁止长按选择文字（可选） */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 移动端优化的输入框 */
+input, textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* 防止双击缩放 */
+.no-double-tap {
+  touch-action: manipulation;
+}
+
+/* 移动端优化的动画流畅度 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

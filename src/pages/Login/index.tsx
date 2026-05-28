@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center relative overflow-hidden p-4">
       {/* Background grid effect */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(0,212,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,212,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
@@ -41,20 +41,20 @@ export default function Login() {
         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Corner decorations */}
-      <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-cyan-500/50" />
-      <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-500/50" />
-      <div className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-500/50" />
-      <div className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-500/50" />
+      {/* Corner decorations - 移动端更小 */}
+      <div className="absolute top-2 left-2 w-10 h-10 md:w-16 md:h-16 border-l-2 border-t-2 border-cyan-500/50" />
+      <div className="absolute top-2 right-2 w-10 h-10 md:w-16 md:h-16 border-r-2 border-t-2 border-cyan-500/50" />
+      <div className="absolute bottom-2 left-2 w-10 h-10 md:w-16 md:h-16 border-l-2 border-b-2 border-cyan-500/50" />
+      <div className="absolute bottom-2 right-2 w-10 h-10 md:w-16 md:h-16 border-r-2 border-b-2 border-cyan-500/50" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 w-full max-w-md mx-4"
+        className="relative z-10 w-full max-w-md"
       >
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 md:mb-8">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -74,7 +74,7 @@ export default function Login() {
               <Shield className="w-16 h-16 text-cyan-400 mx-auto" />
             )}
           </motion.div>
-          <h1 className="text-3xl font-mono text-cyan-400 mb-2 tracking-wider">
+          <h1 className="text-2xl md:text-3xl font-mono text-cyan-400 mb-2 tracking-wider">
             AREA-SPACE-CN
           </h1>
           <p className="text-gray-500 font-mono text-sm">
@@ -83,7 +83,7 @@ export default function Login() {
         </div>
 
         {/* Login form */}
-        <div className="bg-[#0d0d15]/80 backdrop-blur-sm border border-cyan-500/30 rounded-none p-8">
+        <div className="bg-[#0d0d15]/80 backdrop-blur-sm border border-cyan-500/30 rounded-none p-6 md:p-8">
           <div className="flex items-center gap-2 mb-6 pb-4 border-b border-cyan-500/20">
             <Lock className="w-5 h-5 text-cyan-400" />
             <span className="text-cyan-400 font-mono text-sm">
@@ -91,7 +91,7 @@ export default function Login() {
             </span>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-gray-400 font-mono text-xs mb-2 uppercase tracking-wider">
                 用户标识
@@ -102,7 +102,7 @@ export default function Login() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-10 py-3 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all placeholder:text-gray-600"
+                  className="w-full bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-10 py-4 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all placeholder:text-gray-600 text-base"
                   placeholder="输入用户标识"
                   required
                 />
@@ -119,7 +119,7 @@ export default function Login() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-10 py-3 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all placeholder:text-gray-600"
+                  className="w-full bg-[#0a0a0f] border border-cyan-500/30 text-cyan-300 font-mono px-10 py-4 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all placeholder:text-gray-600 text-base"
                   placeholder="输入访问密钥"
                   required
                 />
@@ -130,7 +130,7 @@ export default function Login() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 text-red-400 font-mono text-sm bg-red-500/10 border border-red-500/30 p-3"
+                className="flex items-center gap-2 text-red-400 font-mono text-sm bg-red-500/10 border border-red-500/30 p-4"
               >
                 <AlertTriangle className="w-4 h-4 flex-shrink-0" />
                 {error}
@@ -140,7 +140,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-cyan-500/20 border border-cyan-500 text-cyan-400 font-mono py-3 uppercase tracking-wider hover:bg-cyan-500/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-cyan-500/20 border border-cyan-500 text-cyan-400 font-mono py-4 uppercase tracking-wider hover:bg-cyan-500/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base min-h-[48px] touch-manipulation"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
